@@ -10,28 +10,27 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>Maven Project</name>
-  <description>Sample Maven project</description>
 
-  <!-- ========================= -->
+  <!-- ========================== -->
   <!-- Properties -->
-  <!-- ========================= -->
+  <!-- ========================== -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.release>17</maven.compiler.release>
   </properties>
 
-  <!-- ========================= -->
+  <!-- ========================== -->
   <!-- Modules -->
-  <!-- ========================= -->
+  <!-- ========================== -->
   <modules>
     <module>server</module>
     <module>webapp</module>
   </modules>
 
-  <!-- ========================= -->
-  <!-- Build -->
-  <!-- ========================= -->
+  <!-- ========================== -->
+  <!-- Build Configuration -->
+  <!-- ========================== -->
   <build>
 
     <pluginManagement>
@@ -47,21 +46,18 @@
           </configuration>
         </plugin>
 
-        <!-- Keep other plugins same (safe for legacy project) -->
-
+        <!-- Surefire (Unit Testing) -->
         <plugin>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>3.3.1</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.6.3</version>
-        </plugin>
-
-        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.2.5</version>
+        </plugin>
+
+        <!-- Jetty Plugin (fix version warning) -->
+        <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>8.1.22.v20160922</version>
         </plugin>
 
       </plugins>
@@ -69,13 +65,13 @@
 
   </build>
 
-  <!-- ========================= -->
+  <!-- ========================== -->
   <!-- Dependency Management -->
-  <!-- ========================= -->
+  <!-- ========================== -->
   <dependencyManagement>
     <dependencies>
 
-      <!-- Keeping old dependencies (safe approach) -->
+      <!-- Servlet API (keep legacy safe) -->
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
@@ -88,13 +84,30 @@
         <version>2.2</version>
       </dependency>
 
+      <!-- JUnit (required by server module) -->
       <dependency>
         <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
+        <artifactId>junit-dep</artifactId>
         <version>4.13.2</version>
         <scope>test</scope>
       </dependency>
 
+      <!-- Hamcrest (required by server module) -->
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-core</artifactId>
+        <version>2.2</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-library</artifactId>
+        <version>2.2</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- Mockito -->
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
@@ -105,9 +118,9 @@
     </dependencies>
   </dependencyManagement>
 
-  <!-- ========================= -->
+  <!-- ========================== -->
   <!-- SCM -->
-  <!-- ========================= -->
+  <!-- ========================== -->
   <scm>
     <connection>scm:git:git@github.com:jleetutorial/maven-project.git</connection>
     <developerConnection>scm:git:git@github.com:jleetutorial/maven-project.git</developerConnection>
@@ -115,9 +128,9 @@
     <url>http://github.com/jleetutorial/maven-project</url>
   </scm>
 
-  <!-- ========================= -->
+  <!-- ========================== -->
   <!-- Maven Requirement -->
-  <!-- ========================= -->
+  <!-- ========================== -->
   <prerequisites>
     <maven>3.8.0</maven>
   </prerequisites>
